@@ -4,20 +4,8 @@
   <title>iGoogle II</title>
   <meta name="viewport" content="width = 320" />
   <style type="text/css">
-body{margin:0; padding:0;text-size:x-large;max-width:320px;}
-  #topBar {width:100%; background:#000; height:25px; position:fixed; margin-top:-75px;}
-  #topBar a {text-decoration: none; font-family:Arial, Helvetica, sans-serif; font-size:small; font-weight:bold; vertical-align:middle; }
-  #topBar a:link {color:DarkGrey;}
-  #topBar a:visited {color:DarkGrey;}
-  #topBar a:hover {color:White;}
-  #topBar a:active {color:DarkGrey;}
-  #topBar ul {list-style:none;margin:0; padding:0px 0px 0px 30px;}
-  #topBar li {width:90px;display:inline-block;text-align:left;float:left;}
-  #searchBar {width:100%; background:#dcdcdc;height:30px; position:fixed;margin-top:-55px;}  #searchBar img {padding:5px 30px 0px 30px;}
-  #livefilter-list
-{
-   margin-top:75px;
-}
+  body{margin:0; padding:0;text-size:x-large;max-width:320px;}
+  #searchBar {width:100%; background:#dcdcdc;height:30px;}  
   #livefilter-list li
     {
       list-style: none;
@@ -59,9 +47,6 @@ body{margin:0; padding:0;text-size:x-large;max-width:320px;}
   </script>
  </head>
 <body onload="window.setTimeout(function(){window.location.href=window.location.href},900000);">
-<div id="topBar">
-<ul><li><a href="http://blog.neiltest.com">Blog</a></li><li><a href="http://www.neiltest.com/wiki">NeilWiki</a></li><li><a href="http://neiltest.com/wiki/index.php?title=ToDo">ToDo</a></li><li><a href="http://news.google.co.uk">News</a></li></ul>
-</div>
 <div id="searchBar">
 <form name="myform" action="http://www.google.co.uk/search?hl=en-GB&source=hp&q=" method="get" style="display:inline;"  onSubmit="return checkForm(this); return false;"><input id="livefilter-input" type="text" name="q" size="30" style="vertical-align:50%;"></form></div>
 <ul id="livefilter-list">
@@ -103,6 +88,7 @@ body{margin:0; padding:0;text-size:x-large;max-width:320px;}
 <li><a href='http://www.deadlinkchecker.com'>Dead Link Checker</a> <font color=lightgrey>spidering</font></li>
 <li><a href='http://www.elizium.nu/scripts/lemmings/'>DHTML Lemmings</a> <font color=lightgrey>game</font></li>
 <li><a href='http://www.espncricinfo.com/'>ESPN CricInfo</a> <font color=lightgrey>cricket</font></li>
+<li><a href='https://www.evernote.com/Home.action'>Evernote</a> <font color=lightgrey>documents, wiki</font></li>
 <li><a href='http://www.fakenamegenerator.com/order.php'>Fake Name Generator</a> <font color=lightgrey></font></li>
 <li><a href='http://www.mythicsoft.com/page.aspx?page=download&type=filelocatorlite'>FileLocator Lite</a> <font color=lightgrey>grep</font></li>
 <li><a href='http://www.firstdirect.com'>First Direct</a> <font color=lightgrey>bank</font></li>
