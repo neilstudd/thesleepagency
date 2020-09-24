@@ -1,4 +1,8 @@
-Updated for 2020. Next update: 2030 (OMG)
+### My all-time top 100 favourite songs
+
+These aren't objectively the best tracks, but they mean the most to me!
+
+Next update: 2030 (OMG)
 <div>
 <br>
 <table border="1" bordercolor="#888" cellspacing="0" style="border-collapse:collapse;border-color:rgb(136,136,136);border-width:1px">
