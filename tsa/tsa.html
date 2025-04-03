@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="The Sleep Agency - Book Series">
+    <meta property="og:description" content="Discover the thrilling world of The Sleep Agency book series. Explore dreams, nightmares and the power of the mind.">
+    <meta property="og:image" content="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=mystical book with dream symbols&w=1200&h=630&style=realistic">
+    <meta property="og:type" content="website">
+    <title>The Sleep Agency - Book Series</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin></script>
+    <style>
+        @font-face {
+            font-family: 'Font Awesome 6 Free';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/webfonts/fa-regular-400.woff2') format('woff2'),
+                url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/webfonts/fa-regular-400.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Font Awesome 6 Free';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/webfonts/fa-solid-900.woff2') format('woff2'),
+                url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/webfonts/fa-solid-900.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Font Awesome 6 Brands';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/webfonts/fa-brands-400.woff2') format('woff2'),
+                url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/webfonts/fa-brands-400.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .book-cover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .book-cover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .book-cover.active {
+            border: 3px solid #3b82f6;
+            transform: translateY(-10px);
+        }
+
+        .hero-section {
+            background-image: url('hero.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-overlay {
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .testimonial-section {
+            background-image: url('testimonials.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .book-info-container {
+            min-height: 300px;
+        }
+
+        .loading-spinner {
+            display: none;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #3b82f6;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles-container" id="particles"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section relative">
+        <div class="hero-overlay w-full min-h-screen flex flex-col items-center justify-center px-4 py-16 md:py-32">
+            <div data-aos="fade-down" data-aos-duration="1000" class="text-center mb-8">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-white tracking-tight">The Sleep Agency</h1>
+                <p class="text-xl md:text-2xl text-blue-200 max-w-3xl mx-auto">Journey into the realm where dreams and reality intertwine</p>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" class="flex flex-wrap justify-center gap-8 md:gap-12 mb-16">
+                <a href="#books" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center">
+                    <span>Explore Books</span>
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#books" class="text-white/70 hover:text-white">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section id="books" class="py-16 md:py-24 px-4 bg-slate-900">
+        <div class="container mx-auto max-w-6xl">
+            <h2 data-aos="fade-right" class="text-3xl md:text-4xl font-bold mb-12 text-center">Discover the Series</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Book 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="flex flex-col items-center">
+                    <div class="book-cover active mb-4 rounded-lg overflow-hidden shadow-2xl" data-book="1">
+                        <img src="dreamlinkers.png" 
+                             alt="The Dreamlinkers Book Cover" 
+                             class="w-full h-auto object-cover transition-transform hover:scale-105"
+                             loading="lazy">
+                    </div>
+                    <h3 class="text-xl font-bold text-center">THE DREAMLINKERS</h3>
+                </div>
+                
+                <!-- Book 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col items-center">
+                    <div class="book-cover mb-4 rounded-lg overflow-hidden shadow-2xl" data-book="2">
+                        <img src="nightmare.jpg" 
+                             alt="The Nightmare Prospect Book Cover" 
+                             class="w-full h-auto object-cover transition-transform hover:scale-105"
+                             loading="lazy">
+                    </div>
+                    <h3 class="text-xl font-bold text-center">THE NIGHTMARE PROSPECT</h3>
+                </div>
+                
+                <!-- Book 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col items-center">
+                    <div class="book-cover mb-4 rounded-lg overflow-hidden shadow-2xl" data-book="3">
+                        <img src="https://cdn.simulationtheory.ai/gasset/?asset=img&prompt=mysterious book cover with cosmic dream symbols&w=400&h=600&style=realistic" 
+                             alt="Book 3 Cover" 
+                             class="w-full h-auto object-cover transition-transform hover:scale-105"
+                             loading="lazy">
+                    </div>
+                    <h3 class="text-xl font-bold text-center">BOOK 3</h3>
+                </div>
+            </div>
+            
+            <!-- Book Information Section -->
+            <div class="book-info-container bg-slate-800/50 rounded-xl p-6 md:p-10 shadow-xl backdrop-blur-sm">
+                <div class="loading-spinner" id="loading-spinner"></div>
+                
+                <div id="book-info" class="space-y-6">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4 text-blue-300">THE DREAMLINKERS</h3>
+                    
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-2/3">
+                            <p class="text-lg mb-6">Sometimes, dreams do come true.<br/>And sometimes, somebody needs to stop them.</p>
+                            
+                            <p class="mb-6">Celine and Adam are two British teenagers from troubled backgrounds, who are thrust together when they discover that they have the ability to communicate with each other in their dreams.<br/><br/>
+                                Through a mysterious organisation called The Sleep Agency, the pair discover that their dreams come with a unique extra power: they're sometimes able to predict future events.<br/><br/>
+                                As Celine and Adam work to understand their powers, can The Sleep Agency help the pair to discover their full potential? And, between them, can they prevent an unthinkable tragedy from occurring?</p>
+                            
+                            <div class="flex flex-wrap gap-4 mb-8">
+                                <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">Fantasy</span>
+                                <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">Sci-Fi</span>
+                                <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">Mystery</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/3 bg-slate-700/50 p-6 rounded-lg">
+                            <div class="mb-4">
+                                <div class="text-sm text-slate-400">Release Date</div>
+                                <div class="font-semibold">June 1, 2024</div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="text-sm text-slate-400">Pages</div>
+                                <div class="font-semibold">233</div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="text-sm text-slate-400">Available Formats</div>
+                                <div class="font-semibold">Paperback, E-book</div>
+                            </div>
+                            
+                            <a href="https://www.amazon.co.uk/Dreamlinkers-Sleep-Agency-Neil-Studd/dp/B0D2LGLYF3" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                                Buy on Amazon
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonial-section py-16 md:py-24 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 data-aos="fade-right" class="text-3xl md:text-4xl font-bold mb-12 text-center">Reader Reviews</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-slate-800/70 backdrop-blur-sm p-6 rounded-xl shadow-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-sm text-slate-400">5.0</span>
+                    </div>
+                    <p class="mb-6 italic">"A truly gripping, yet funny and heartfelt story about two teenagers and their struggle for acceptance while dealing with strange supernatural experiences."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3">K</div>
+                        <div>
+                            <div class="font-semibold">KPaton</div>
+                            <div class="text-sm text-slate-400">Amazon Reviewer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-slate-800/70 backdrop-blur-sm p-6 rounded-xl shadow-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-sm text-slate-400">5.0</span>
+                    </div>
+                    <p class="mb-6 italic">"Mind bending realities, conspiracy, and the nature of dreams all told through the lens of two teenagers. A real page turner. Can't wait for the next one."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold mr-3">J</div>
+                        <div>
+                            <div class="font-semibold">Joe W.</div>
+                            <div class="text-sm text-slate-400">Amazon Reviewer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-slate-800/70 backdrop-blur-sm p-6 rounded-xl shadow-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-sm text-slate-400">5.0</span>
+                    </div>
+                    <p class="mb-6 italic">"An exceptional debut, The Dreamlinkers is the sort of tale that sticks in your mind for a long long time after reading. Loved it!"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold mr-3">E</div>
+                        <div>
+                            <div class="font-semibold">Elizabeth</div>
+                            <div class="text-sm text-slate-400">Amazon Reviewer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // Book selection functionality
+            initBookSelection();
+            
+            // Smooth scrolling for anchor links
+            initSmoothScroll();
+        });
+
+        // Book selection functionality
+        function initBookSelection() {
+            const bookCovers = document.querySelectorAll('.book-cover');
+            const bookInfo = document.getElementById('book-info');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            // Book data
+            const bookData = {
+                1: {
+                    title: "THE DREAMLINKERS",
+                    description: `<p class="text-lg mb-6">Sometimes, dreams do come true.<br/>And sometimes, somebody needs to stop them.</p>
+                            
+                            <p class="mb-6">Celine and Adam are two British teenagers from troubled backgrounds, who are thrust together when they discover that they have the ability to communicate with each other in their dreams.<br/><br/>
+                                Through a mysterious organisation called The Sleep Agency, the pair discover that their dreams come with a unique extra power: they're sometimes able to predict future events.<br/><br/>
+                                As Celine and Adam work to understand their powers, can The Sleep Agency help the pair to discover their full potential? And, between them, can they prevent an unthinkable tragedy from occurring?</p>
+                    
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">Young Adult</span>
+                        <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">Sci-Fi</span>
+                        <span class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">Fantasy</span>
+                    </div>`,
+                    releaseDate: "June 1, 2024",
+                    pages: "233",
+                    formats: "Paperback, E-book",
+                    amazonUrl: "https://www.amazon.co.uk/Dreamlinkers-Sleep-Agency-Neil-Studd/dp/B0D2LGLYF3"
+                },
+                2: {
+                    title: "THE NIGHTMARE PROSPECT",
+                    description: `<p class="text-lg mb-6">The dreamlinkers live in secret.<br/>Their powers are growing.<br/>And now, someone’s out to kill them.</p>
+                    
+                    <p class="mb-6">The Sleep Agency, and its finest recruits, are reeling in the face of a global catastrophe. But as they seek to perform damage control, it appears as if dark forces are starting to hunt them down in their dreams.<br/><br/>
+Meanwhile, in China, an aspiring military official is trying to piece together the mysteries of dreamlinking for herself, but what will her bosses do with the information that they discover?<br/><br/>
+In a globe-spanning adventure, can Adam and Celine help to unravel a conspiracy which threatens to bring the world to the brink of war - and can they avoid being marked for death themselves?.</p>
+                    
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span class="bg-purple-900/60 text-purple-200 px-3 py-1 rounded-full text-sm">Young Adult</span>
+                        <span class="bg-purple-900/60 text-purple-200 px-3 py-1 rounded-full text-sm">Sci-Fi</span>
+                        <span class="bg-purple-900/60 text-purple-200 px-3 py-1 rounded-full text-sm">Mystery</span>
+                    </div>`,
+                    releaseDate: "April 10, 2025",
+                    pages: "266",
+                    formats: "Paperback, E-book",
+                    amazonUrl: "https://www.amazon.co.uk/gp/product/B0F2GKW867"
+                },
+                3: {
+                    title: "BOOK 3",
+                    description: `<p class="text-lg mb-6">The epic conclusion to The Sleep Agency trilogy.</p>
+                    
+                    <p class="mb-6">Stay tuned - more details to be revealed...</p>
+                    
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span class="bg-teal-900/60 text-teal-200 px-3 py-1 rounded-full text-sm">Young Adult</span>
+                        <span class="bg-teal-900/60 text-teal-200 px-3 py-1 rounded-full text-sm">Sci-Fi</span>
+                        <span class="bg-teal-900/60 text-teal-200 px-3 py-1 rounded-full text-sm">Adventure</span>
+                    </div>`,
+                    releaseDate: "Coming early 2026",
+                    pages: "TBC",
+                    formats: "Paperback, E-book"
+                }
+            };
+            
+            // Add click event listeners to book covers
+            bookCovers.forEach(cover => {
+                cover.addEventListener('click', function() {
+                    // Remove active class from all covers
+                    bookCovers.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked cover
+                    this.classList.add('active');
+                    
+                    // Get book ID
+                    const bookId = this.getAttribute('data-book');
+                    
+                    // Show loading spinner
+                    bookInfo.style.opacity = 0;
+                    loadingSpinner.style.display = 'block';
+                    
+                    // Simulate loading delay for better UX
+                    setTimeout(() => {
+                        updateBookInfo(bookId);
+                        
+                        // Hide spinner and show content
+                        loadingSpinner.style.display = 'none';
+                        bookInfo.style.opacity = 1;
+                    }, 600);
+                });
+            });
+            
+            // Function to update book information
+            function updateBookInfo(bookId) {
+                const book = bookData[bookId];
+                
+                // Create HTML for book info
+                let html = `
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4 ${bookId == 1 ? 'text-blue-300' : bookId == 2 ? 'text-purple-300' : 'text-teal-300'}">${book.title}</h3>
+                    
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-2/3">
+                            ${book.description}
+                        </div>
+                        
+                        <div class="md:w-1/3 bg-slate-700/50 p-6 rounded-lg">
+                            <div class="mb-4">
+                                <div class="text-sm text-slate-400">Release Date</div>
+                                <div class="font-semibold">${book.releaseDate}</div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="text-sm text-slate-400">Pages</div>
+                                <div class="font-semibold">${book.pages}</div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="text-sm text-slate-400">Available Formats</div>
+                                <div class="font-semibold">${book.formats}</div>
+                            </div>`;
+                
+                // Add Buy on Amazon button for books 1 and 2 only
+                if (bookId == 1 || bookId == 2) {
+                    html += `
+                            <a href="${book.amazonUrl}" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                                Buy on Amazon
+                            </a>`;
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                // Update the book info container
+                bookInfo.innerHTML = html;
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Get header height for offset
+                        const headerHeight = 0; // Adjust if you have a fixed header
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - headerHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+        
